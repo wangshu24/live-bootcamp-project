@@ -22,6 +22,7 @@ impl Application {
 
         let router = Router::new()
             .fallback_service(assets_dir)
+            .route("/", get(hello))
             .route("/signup", post(signup))
             .route("/login", post(login))
             .route("/logout", post(logout))
