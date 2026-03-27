@@ -2,7 +2,7 @@ mod routes;
 #[cfg(test)]
 mod tests;
 use axum::serve::Serve;
-use axum::{routing::post, Router};
+use axum::{routing::get, routing::post, Router};
 use routes::*;
 use std::error::Error;
 use tokio::net::TcpListener;
