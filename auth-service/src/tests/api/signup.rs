@@ -1,5 +1,5 @@
 use super::helpers::{get_random_email, TestApp};
-use crate::routes::{SignupRequest, SignupResponse};
+use crate::routes::SignupResponse;
 use crate::ErrorResponse;
 
 #[tokio::test]

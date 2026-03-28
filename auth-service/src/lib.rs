@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests;
 
-// use app_state::*;
-use app_state::*;
+use crate::app_state::AppState;
+use crate::domain::AuthAPIError;
 use axum::serve::Serve;
 use axum::{
     http::StatusCode,
@@ -11,7 +11,7 @@ use axum::{
     routing::post,
     Json, Router,
 };
-use domain::*;
+
 use routes::*;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
