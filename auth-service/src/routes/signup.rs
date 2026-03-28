@@ -12,12 +12,13 @@ pub async fn signup(
     Json(request): Json<SignupRequest>,
 ) -> Result<impl IntoResponse, AuthAPIError> {
     // Create a new `User` instance using data in the `request`
-
+    if request.email.is_empty() || !request.email.contains("@") || request.password.len() < 8 {
+        return Err(AuthAPIError::InvalidCredentials);
+    }
     let user = User::new(request.email, request.password, request.requires_2fa);
 
     let mut user_store = state.user_store.write().await;
 
-    // TODO: Add `user` to the `user_store`. Simply unwrap the returned `Result` enum type for now.
     if user_store.get_user(&user.email).await.is_ok() {
         return Err(AuthAPIError::UserAlreadyExists);
     }
