@@ -7,7 +7,6 @@ use crate::{
 };
 
 pub async fn signup(
-    // TODO: Use Axum's state extractor to pass in AppState
     State(state): State<AppState>,
     Json(request): Json<SignupRequest>,
 ) -> Result<impl IntoResponse, AuthAPIError> {
