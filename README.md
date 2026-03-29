@@ -30,6 +30,7 @@ visit http://localhost:3000
 ```bash
 docker compose build
 docker compose up
+./docker.sh
 ```
 
 visit http://localhost:8000 and http://localhost:3000
