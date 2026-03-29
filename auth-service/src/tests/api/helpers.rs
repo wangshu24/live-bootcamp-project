@@ -1,4 +1,5 @@
-use crate::services::HashmapUserStore;
+use crate::app_state::BannedTokenStoreType;
+use crate::services::{HashmapUserStore, HashsetBannedTokenStore};
 use crate::AppState;
 use reqwest::cookie::Jar;
 use std::sync::Arc;
@@ -11,12 +12,14 @@ pub struct TestApp {
     pub address: String,
     pub cookie_jar: Arc<Jar>,
     pub http_client: reqwest::Client,
+    pub banned_token_store: BannedTokenStoreType,
 }
 
 impl TestApp {
     pub async fn new() -> Self {
         let user_store = Arc::new(RwLock::new(HashmapUserStore::default()));
-        let app_state = AppState::new(user_store);
+        let banned_token_store = Arc::new(RwLock::new(HashsetBannedTokenStore::default()));
+        let app_state = AppState::new(banned_token_store.clone(), user_store);
         let app = Application::build(app_state, "127.0.0.1:0")
             .await
             .expect("Failed to build app");
@@ -39,6 +42,7 @@ impl TestApp {
             address,
             cookie_jar,
             http_client,
+            banned_token_store,
         }
     }
 
